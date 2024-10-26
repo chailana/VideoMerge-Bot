@@ -1,4 +1,4 @@
-pyrogram==1.4.16
+pyrogram
 TgCrypto
 hachoir
 Pillow
@@ -9,3 +9,5 @@ aiofiles
 psutil
 pyromod
 humanfriendly
+flask
+gunicorn
