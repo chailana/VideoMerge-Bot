@@ -3,7 +3,7 @@
 # Coded by a Nub.
 # Don't Laugh seeing the codes.
 # Me learning.
-
+from pyrogram.enums import ParseMode
 import os
 import time
 import string
@@ -66,7 +66,7 @@ async def start_handler(bot: Client, m: Message):
     )
 
 
-@NubBot.on_message(filters.private & (filters.video | filters.document) & ~filters.edited)
+@NubBot.on_message(filters.private & (filters.video | filters.document))
 async def videos_handler(bot: Client, m: Message):
     await AddUserToDatabase(bot, m)
     Fsub = await ForceSub(bot, m)
@@ -150,7 +150,7 @@ async def settings_handler(bot: Client, m: Message):
     await OpenSettings(editable, m.from_user.id)
 
 
-@NubBot.on_message(filters.private & filters.command("broadcast") & filters.reply & filters.user(Config.BOT_OWNER) & ~filters.edited)
+@NubBot.on_message(filters.private & filters.command("broadcast") & filters.reply & filters.user(Config.BOT_OWNER))
 async def _broadcast(_, m: Message):
     await broadcast_handler(m)
 
@@ -167,7 +167,7 @@ async def _status(_, m: Message):
     total_users = await db.total_users_count()
     await m.reply_text(
         text=f"**Total Disk Space:** {total} \n**Used Space:** {used}({disk_usage}%) \n**Free Space:** {free} \n**CPU Usage:** {cpu_usage}% \n**RAM Usage:** {ram_usage}%\n\n**Total Users in DB:** `{total_users}`",
-        parse_mode="Markdown",
+        parse_mode=ParseMode.HTML,
         quote=True
     )
 
@@ -185,7 +185,7 @@ async def check_handler(bot: Client, m: Message):
                       f"**Generate Screenshots:** `{await db.get_generate_ss(id=int(m.command[1]))}`\n"
         await editable.edit(
             text=detail_text,
-            parse_mode="Markdown",
+            parse_mode=ParseMode.HTML,
             disable_web_page_preview=True
         )
 
@@ -328,7 +328,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                 if user.status == "kicked":
                     await cb.message.edit(
                         text="Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/linux_repo).",
-                        parse_mode="markdown",
+                        parse_mode=ParseMode.HTML,
                         disable_web_page_preview=True
                     )
                     return
@@ -350,19 +350,19 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                             ]
                         ]
                     ),
-                    parse_mode="markdown"
+                    parse_mode=ParseMode.HTML
                 )
                 return
             except Exception:
                 await cb.message.edit(
                     text="Something went Wrong. Contact my [Support Group](https://t.me/linux_repo).",
-                    parse_mode="markdown",
+                    parse_mode=ParseMode.HTML,
                     disable_web_page_preview=True
                 )
                 return
         await cb.message.edit(
             text=Config.START_TEXT,
-            parse_mode="Markdown",
+            parse_mode=ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Developer - @AbirHasan2005", url="https://t.me/AbirHasan2005"), InlineKeyboardButton("Support Group", url="https://t.me/linux_repo")], [InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")]]),
             disable_web_page_preview=True
         )
