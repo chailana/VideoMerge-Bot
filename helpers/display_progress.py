@@ -1,4 +1,5 @@
 import math
+from pyrogram.enums import ParseMode
 import time
 from configs import Config
 
@@ -34,7 +35,7 @@ async def progress_for_pyrogram(current, total, ud_type, message, start):
                     ud_type,
                     tmp
                 ),
-                parse_mode='markdown'
+                parse_mode=ParseMode.HTML
             )
         except:
             pass
