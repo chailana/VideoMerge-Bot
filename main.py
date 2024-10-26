@@ -218,7 +218,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                     text=f"Downloading `{media.file_name}` ..."
                 )
             except MessageNotModified:
-                QueueDB.get(cb.from_user.id).remove(i.message_id)
+                QueueDB.get(cb.from_user.id).remove(i.id)
                 await cb.message.edit("File Skipped!")
                 await asyncio.sleep(3)
                 continue
@@ -227,7 +227,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                 c_time = time.time()
                 file_dl_path = await bot.download_media(
                     message=i,
-                    file_name=f"{Config.DOWN_PATH}/{cb.from_user.id}/{i.message_id}/",
+                    file_name=f"{Config.DOWN_PATH}/{cb.from_user.id}/{i.id}/",
                     progress=progress_for_pyrogram,
                     progress_args=(
                         "Downloading ...",
@@ -237,7 +237,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                 )
             except Exception as downloadErr:
                 print(f"Failed to Download File!\nError: {downloadErr}")
-                QueueDB.get(cb.from_user.id).remove(i.message_id)
+                QueueDB.get(cb.from_user.id).remove(i.id)
                 await cb.message.edit("File Skipped!")
                 await asyncio.sleep(3)
                 continue
@@ -311,7 +311,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                 reply_to_message_id=message_.message_id,
                 reply_markup=InlineKeyboardMarkup(
                     [
-                        [InlineKeyboardButton("Remove File", callback_data=f"removeFile_{str(message_.message_id)}")]
+                        [InlineKeyboardButton("Remove File", callback_data=f"removeFile_{str(message_.id)}")]
                     ]
                 )
             )
