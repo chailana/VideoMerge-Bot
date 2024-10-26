@@ -308,7 +308,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
             await bot.send_message(
                 chat_id=cb.message.chat.id,
                 text="This File Sir!",
-                reply_to_message_id=message_.message_id,
+                reply_to_message_id=message_.id,
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [InlineKeyboardButton("Remove File", callback_data=f"removeFile_{str(message_.id)}")]
