@@ -97,7 +97,7 @@ async def videos_handler(bot: Client, m: Message):
         if QueueDB.get(m.from_user.id, None) is None:
             QueueDB.update({m.from_user.id: []})
         if (len(QueueDB.get(m.from_user.id)) >= 0) and (len(QueueDB.get(m.from_user.id)) <= Config.MAX_VIDEOS):
-            QueueDB.get(m.from_user.id).append(m.message_id)
+            QueueDB.get(m.from_user.id).append(m.id)
             if ReplyDB.get(m.from_user.id, None) is not None:
                 await bot.delete_messages(chat_id=m.chat.id, message_ids=ReplyDB.get(m.from_user.id))
             if FormtDB.get(m.from_user.id, None) is None:
