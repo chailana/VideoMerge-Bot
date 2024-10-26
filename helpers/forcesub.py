@@ -1,5 +1,5 @@
 # (c) @AbirHasan2005
-
+from pyrogram.enums import ParseMode
 import asyncio
 from configs import Config
 from pyrogram import Client
@@ -22,7 +22,7 @@ async def ForceSub(bot: Client, cmd: Message):
             await bot.send_message(
                 chat_id=cmd.from_user.id,
                 text="Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/linux_repo).",
-                parse_mode="markdown",
+                parse_mode=ParseMode.HTML,
                 disable_web_page_preview=True
             )
             return 400
@@ -40,14 +40,14 @@ async def ForceSub(bot: Client, cmd: Message):
                     ]
                 ]
             ),
-            parse_mode="markdown"
+            parse_mode=ParseMode.HTML
         )
         return 400
     except Exception:
         await bot.send_message(
             chat_id=cmd.from_user.id,
             text="Something went Wrong. Contact my [Support Group](https://t.me/linux_repo).",
-            parse_mode="markdown",
+            parse_mode=ParseMode.HTML,
             disable_web_page_preview=True
         )
         return 400
