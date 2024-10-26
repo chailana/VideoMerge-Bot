@@ -112,7 +112,7 @@ async def videos_handler(bot: Client, m: Message):
                 reply_markup=InlineKeyboardMarkup(markup),
                 quote=True
             )
-            ReplyDB.update({m.from_user.id: reply_.message_id})
+            ReplyDB.update({m.from_user.id: reply_.id})
         elif len(QueueDB.get(m.from_user.id)) > Config.MAX_VIDEOS:
             markup = await MakeButtons(bot, m, QueueDB)
             await editable.edit(
